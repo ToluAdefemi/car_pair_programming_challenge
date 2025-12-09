@@ -37,21 +37,65 @@ Methods:
 - List latest readings 
 
 ```python
-Given a new tyre with a position, pressure and tread depth
-It returns the properties correctly and an empty readings list
+#Given a new tyre with a pressure and tread depth
+#It returns the properties correctly and an empty readings list
 def test_new_tyre_returns_properties_correctly():
-    tyre = Tyre("front left")
-    assert tyre.position == "front left"
+    tyre = Tyre()
     assert tyre.readings == []
 
-Given a tyre with updated tread depth and pressure
-It will add a new reading with add_reading()
+#Given a tyre with updated tread depth and pressure
+#It will add a new reading with add_reading()
 def test_add_reading_takes_in_pressure_and_depth_updates_readings
-    tyre = Tyre("front left")
-    tyre.add_reading({depth: 23, pressure, 2})    
-    assert tyre.readings == [{depth: 23, pressure, 2}]
-    tyre.add_reading({depth: 62, pressure, 12})
-    assert tyre.readings == [{depth: 23, pressure, 2},{depth: 62, pressure, 12}]
+    tyre = Tyre()
+    tyre.add_reading({depth: 23, pressure: 2})    
+    assert tyre.readings == [{depth: 23, pressure: 2, time_added: 10/12/25}]
+    tyre.add_reading({depth: 62, pressure: 12})
+    assert tyre.readings == [{depth: 23, pressure: 2, time_added: 10/12/25},{depth: 62, pressure: 12, time_added: 10/12/25}]
 
+#Given a car with a name and tyres, it will return the correct properties 
+def test_car_initialised_with_name_and_tyres():
+    tyre1 = Tyre()
+    tyre2 = Tyre()
+    tyre3 = Tyre()
+    tyre4 = Tyre()
+    car = Car({"front right":tyre1,
+                "front left":tyre2,
+                "back right":tyre3,
+                "back left":tyre4
+                })
+    assert car.tyres == {"front right":tyre1,
+                "front left":tyre2,
+                "back right":tyre3,
+                "back left":tyre4
+                }
 
+#Given a car with tyres, it will return the newest reading with newest_reading()
+def test_newest_reading_returns_most_recent_tyre_readings_for_singular_tyre():
+    tyre1 = Tyre()
+    tyre.add_reading({depth: 23, pressure: 2}) 
+    tyre2 = Tyre()
+    tyre3 = Tyre()
+    tyre4 = Tyre()
+    car = Car({"front right":tyre1,
+                "front left":tyre2,
+                "back right":tyre3,
+                "back left":tyre4
+                })
+
+    assert car.newest_reading("front right") == {depth: 23, pressure: 2, time_added: 10/12/25}
+
+#Given a car with tyres, return all the history of a singular tyre's readings     
+def test_return_history_for_tyre():
+    tyre1 = Tyre()
+    tyre.add_reading({depth: 23, pressure: 2})
+    tyre.add_reading({depth: 73, pressure: 12}) 
+    tyre2 = Tyre()
+    tyre3 = Tyre()
+    tyre4 = Tyre()
+    car = Car({"front right":tyre1,
+                "front left":tyre2,
+                "back right":tyre3,
+                "back left":tyre4
+                })
+    assert car.tyre_history("front right") == [{depth: 23, pressure: 2, time_added: 10/12/25},{depth: 73, pressure: 12, time_added: 10/12/25}]
 ```
