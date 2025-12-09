@@ -17,26 +17,41 @@ I want to list the tyres' positions, latest readings and when those were
 
 Classes:
 - Tyre
-- Tyre Reading 
 - Car 
 
 Tyre
 Properties:
 - Position
-- Pressure 
-- Tread Depth 
 
 Methods: 
 - update readings
-- list readings   
 
 Car 
 Properties:
 - Tyre Positions
-- Readings 
+- Readings [{depth: 23, pressure, 2},...]
 
 Methods:
 - List Readings
 - Update Readings
 - List latest readings 
 
+```python
+Given a new tyre with a position, pressure and tread depth
+It returns the properties correctly and an empty readings list
+def test_new_tyre_returns_properties_correctly():
+    tyre = Tyre("front left")
+    assert tyre.position == "front left"
+    assert tyre.readings == []
+
+Given a tyre with updated tread depth and pressure
+It will add a new reading with add_reading()
+def test_add_reading_takes_in_pressure_and_depth_updates_readings
+    tyre = Tyre("front left")
+    tyre.add_reading({depth: 23, pressure, 2})    
+    assert tyre.readings == [{depth: 23, pressure, 2}]
+    tyre.add_reading({depth: 62, pressure, 12})
+    assert tyre.readings == [{depth: 23, pressure, 2},{depth: 62, pressure, 12}]
+
+
+```
